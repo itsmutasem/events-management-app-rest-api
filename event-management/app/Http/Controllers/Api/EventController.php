@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return \App\Models\Event::all();
+        return \App\Models\User::all();
     }
 
     /**
