@@ -32,7 +32,7 @@ class EventController extends Controller
             ]),
             'user_id' => 1
         ]);
-        return $event;
+        return new EventResource($event);
     }
 
     /**
