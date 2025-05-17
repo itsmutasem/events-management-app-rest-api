@@ -55,7 +55,7 @@ class EventController extends Controller
             'start_time' => 'sometimes|date',
             'end_time' => 'sometimes|date|after:start_time'
         ]));
-        return $event;
+        return new EventResource($event);
     }
 
     /**
