@@ -21,10 +21,10 @@ class EventResource extends JsonResource
         'description' => $this->description,
         'start_time' => $this->start_time,
         'end_time' => $this->end_time,
-        'user' => new UserResource($this->whenLoaded('user'))
+        'user' => new UserResource($this->whenLoaded('user')), // Single related model
         // user => new UserResource(...): wraps the event's user in a custom format.
         // whenLoaded('user'): avoids unnecessary database queries.
-
+        'attendees' => AttendeeResource::collection($this->whenLoaded('attendees')) // many related model
     ];
     }
 }
