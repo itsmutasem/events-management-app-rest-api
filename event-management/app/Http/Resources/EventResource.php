@@ -20,7 +20,11 @@ class EventResource extends JsonResource
         'name' => $this->name,
         'description' => $this->description,
         'start_time' => $this->start_time,
-        'end_time' => $this->end_time
+        'end_time' => $this->end_time,
+        'user' => new UserResource($this->whenLoaded('user'))
+        // user => new UserResource(...): wraps the event's user in a custom format.
+        // whenLoaded('user'): avoids unnecessary database queries.
+
     ];
     }
 }

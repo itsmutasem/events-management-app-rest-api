@@ -15,7 +15,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        return EventResource::collection(Event::all());
+        return EventResource::collection(Event::with('user')->get());
+        // Best used with Event::with('user') to avoid performance issues.
+        // eager-loads the user to prevent extra queries
     }
 
     /**
