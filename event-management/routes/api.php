@@ -11,7 +11,7 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('events', EventController::class);
 Route::apiResource('events.attendees', AttendeeController::class)
-    ->scoped(['attendee' => 'event']);
+    ->scoped();
 
 // GET|HEAD api/event  =>  event.index
 // POST api/event  =>  event.store
