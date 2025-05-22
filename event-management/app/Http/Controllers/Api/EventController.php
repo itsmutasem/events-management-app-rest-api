@@ -10,19 +10,15 @@ use Illuminate\Support\Facades\App;
 
 class EventController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        return EventResource::collection(Event::with('user')->get());
+        return EventResource::collection(
+            Event::with('user')->paginate()
+        );
         // Best used with Event::with('user') to avoid performance issues.
         // eager-loads the user to prevent extra queries
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $event = Event::create([
@@ -37,18 +33,12 @@ class EventController extends Controller
         return new EventResource($event);
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Event $event)
     {
         $event->load('user', 'attendees');
         return new EventResource($event);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Event $event)
     {
         $event->update(
@@ -61,9 +51,6 @@ class EventController extends Controller
         return new EventResource($event);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Event $event)
     {
         $event->delete();
