@@ -20,6 +20,7 @@ class AttendeeController extends Controller
         $attendee = $event->attendees()->create([
             'user_id' => 1
         ]);
+        return new AttendeeResource($attendee);
     }
 
     public function show(string $id)
