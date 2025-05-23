@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 
 trait CanLoadRelationships
 {
-    public function loadRelationships(Model|QueryBuilder|EloquentBuilder $for, array $relations)
+    public function loadRelationships(Model|QueryBuilder|EloquentBuilder $for, array $relations): Model|QueryBuilder|EloquentBuilder
     {
         foreach ($relations as $relation) {
             $for->when(
@@ -16,6 +16,7 @@ trait CanLoadRelationships
                 fn($q) => $for instanceof Model ? $q->load($relation) : $q->with($relation)
             );
         }
+        return $for;
     }
     protected function shouldIncludeRelation(string $relation): bool
     {
