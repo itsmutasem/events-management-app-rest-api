@@ -57,7 +57,7 @@ class EventController extends Controller
             'start_time' => 'sometimes|date',
             'end_time' => 'sometimes|date|after:start_time'
         ]));
-        return new EventResource($event);
+        return new EventResource($this->loadRelationships($event));
     }
 
     public function destroy(Event $event)
