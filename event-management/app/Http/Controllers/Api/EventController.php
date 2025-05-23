@@ -12,6 +12,7 @@ class EventController extends Controller
 {
     public function index()
     {
+        $this->shouldIncludeRelation('user');
         return EventResource::collection(
             Event::with('user')->paginate()
         );
@@ -22,6 +23,7 @@ class EventController extends Controller
     protected function shouldIncludeRelation(string $relation): bool
     {
         $include = request()->query('include');
+        dd($include);
     }
 
     public function store(Request $request)
