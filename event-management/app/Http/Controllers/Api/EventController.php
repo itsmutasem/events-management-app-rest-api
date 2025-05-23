@@ -26,8 +26,8 @@ class EventController extends Controller
         if  (!$include){
             return false;
         }
-        $relation = array_map('trim', explode(',', $include));
-        dd($relation);
+        $relations = array_map('trim', explode(',', $include));
+        return in_array($relation, $relations);
     }
 
     public function store(Request $request)
