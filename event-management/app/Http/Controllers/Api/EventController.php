@@ -15,14 +15,8 @@ class EventController extends Controller
     use CanLoadRelationships;
     public function index()
     {
-        $query = Event::query();
         $relations = ['user', 'attendees', 'attendees.user'];
-        foreach ($relations as $relation) {
-            $query->when(
-                $this->shouldIncludeRelation($relation),
-                fn($q) => $q->with($relation)
-            );
-        }
+        $query = $this->loadRelationships(Event::query(), $relations);
         return EventResource::collection(
             $query->latest()->paginate()
         );
