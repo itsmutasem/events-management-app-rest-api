@@ -11,7 +11,7 @@ trait CanLoadRelationships
     public function loadRelationships(Model|QueryBuilder|EloquentBuilder $for, array $relations)
     {
         foreach ($relations as $relation) {
-            $query->when(
+            $for->when(
                 $this->shouldIncludeRelation($relation),
                 fn($q) => $q->with($relation)
             );
