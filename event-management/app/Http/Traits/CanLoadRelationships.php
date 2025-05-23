@@ -13,7 +13,7 @@ trait CanLoadRelationships
         foreach ($relations as $relation) {
             $for->when(
                 $this->shouldIncludeRelation($relation),
-                fn($q) => $q->with($relation)
+                fn($q) => $for instanceof Model ? $q->load($relation) : $q->with($relation)
             );
         }
     }
