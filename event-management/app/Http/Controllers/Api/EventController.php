@@ -12,7 +12,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $this->shouldIncludeRelation('user');
+        $relations = ['user', 'attendees', 'attendees.user'];
         return EventResource::collection(
             Event::with('user')->paginate()
         );
