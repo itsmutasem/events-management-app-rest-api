@@ -13,11 +13,7 @@ use Illuminate\Support\Facades\App;
 class EventController extends Controller
 {
     use CanLoadRelationships;
-    private readonly array $relations;
-    public function __construct()
-    {
-        $this->relations = ['user', 'attendees', 'attendees.user'];
-    }
+    private array $relations = ['user', 'attendees', 'attendees.user'];
 
     public function index()
     {
