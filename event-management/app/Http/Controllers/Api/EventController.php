@@ -45,7 +45,7 @@ class EventController extends Controller
 
     public function show(Event $event)
     {
-        return new EventResource($event);
+        return new EventResource($this->loadRelationships($event));
     }
 
     public function update(Request $request, Event $event)
