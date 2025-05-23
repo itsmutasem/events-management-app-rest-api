@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
 use App\Models\Event;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -12,9 +13,16 @@ class EventController extends Controller
 {
     public function index()
     {
+        $query = Event::query();
         $relations = ['user', 'attendees', 'attendees.user'];
+        foreach ($relations as $relation) {
+            $query->when(
+                $this->shouldIncludeRelation($relation),
+                fn($q) => $q->with($relation)
+            );
+        }
         return EventResource::collection(
-            Event::with('user')->paginate()
+            $query->latest()->paginate()
         );
         // Best used with Event::with('user') to avoid performance issues.
         // eager-loads the user to prevent extra queries
