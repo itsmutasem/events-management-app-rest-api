@@ -40,7 +40,7 @@ class EventController extends Controller
             ]),
             'user_id' => 1
         ]);
-        return new EventResource($event);
+        return new EventResource($this->loadRelationships($event));
     }
 
     public function show(Event $event)
