@@ -10,6 +10,7 @@ trait CanLoadRelationships
 {
     public function loadRelationships(Model|QueryBuilder|EloquentBuilder $for, ?array $relations): Model|QueryBuilder|EloquentBuilder
     {
+        $relations = $relations ?? $this->relations ?? [];
         foreach ($relations as $relation) {
             $for->when(
                 $this->shouldIncludeRelation($relation),
