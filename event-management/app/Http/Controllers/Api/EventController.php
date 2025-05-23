@@ -23,6 +23,10 @@ class EventController extends Controller
     protected function shouldIncludeRelation(string $relation): bool
     {
         $include = request()->query('include');
+        if  (!$include){
+            return false;
+        }
+        $relation = explode(',', $include);
         dd($include);
     }
 
