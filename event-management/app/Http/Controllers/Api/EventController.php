@@ -19,6 +19,11 @@ class EventController extends Controller
         // eager-loads the user to prevent extra queries
     }
 
+    protected function shouldIncludeRelation(string $relation): bool
+    {
+        $include = request()->query('include');
+    }
+
     public function store(Request $request)
     {
         $event = Event::create([
