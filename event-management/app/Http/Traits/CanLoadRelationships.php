@@ -15,5 +15,15 @@ trait CanLoadRelationships
                 $this->shouldIncludeRelation($relation),
                 fn($q) => $q->with($relation)
             );
+        }
+    }
+    protected function shouldIncludeRelation(string $relation): bool
+    {
+        $include = request()->query('include');
+        if  (!$include){
+            return false;
+        }
+        $relations = array_map('trim', explode(',', $include));
+        return in_array($relation, $relations);
     }
 }
