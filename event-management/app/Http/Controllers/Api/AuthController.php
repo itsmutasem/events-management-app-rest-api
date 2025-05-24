@@ -13,6 +13,7 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+        $user = \App\Models\User::where('email', $request->email)->first();
     }
 
     public function logout(Request $request)
