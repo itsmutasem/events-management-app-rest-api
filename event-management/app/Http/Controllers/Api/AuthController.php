@@ -26,6 +26,7 @@ class AuthController extends Controller
                 'email' => ['The provided credentials are incorrect']
             ]);
         }
+        $token = $user->createToken('api-token')->plainTextToken;
     }
 
     public function logout(Request $request)
