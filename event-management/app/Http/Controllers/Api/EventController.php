@@ -9,6 +9,7 @@ use App\Models\Event;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Gate;
 
 class EventController extends Controller
 {
@@ -17,6 +18,7 @@ class EventController extends Controller
 
     public function index()
     {
+        Gate::authorize('viewAny', Event::class);
         $query = $this->loadRelationships(Event::query());
         return EventResource::collection(
             $query->latest()->paginate()
