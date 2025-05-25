@@ -6,15 +6,25 @@ use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+//Route::get('/user', function (Request $request) {
+//    return $request->user();
+//})->middleware('auth:sanctum');
 
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::apiResource('events', EventController::class);
-Route::apiResource('events.attendees', AttendeeController::class)
-    ->scoped()->except(['update']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::apiResource('events', EventController::class);
+    Route::apiResource('events.attendees', AttendeeController::class)
+        ->scoped()->except(['update']);
+});
+
+//Route::apiResource('events', EventController::class);
+//Route::apiResource('events.attendees', AttendeeController::class)
+//    ->scoped()->except(['update']);
 
 // GET|HEAD api/event  =>  event.index
 // POST api/event  =>  event.store
