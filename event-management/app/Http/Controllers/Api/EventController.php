@@ -29,6 +29,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        Gate::authorize('create', Event::class);
         $event = Event::create([
             ... $request->validate([
                 'name' => 'required|string|max:255',
