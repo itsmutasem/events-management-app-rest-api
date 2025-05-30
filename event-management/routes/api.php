@@ -10,15 +10,19 @@ use Illuminate\Support\Facades\Route;
 //    return $request->user();
 //})->middleware('auth:sanctum');
 
+// Public routes
 Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::apiResource('events', EventController::class)->only(['index', 'show']);
 
+// Protected routes
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    Route::apiResource('events', EventController::class);
+    Route::apiResource('events', EventController::class)->except(['index', 'show']);
     Route::apiResource('events.attendees', AttendeeController::class)
         ->scoped()->except(['update']);
 });
